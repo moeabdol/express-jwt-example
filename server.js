@@ -5,6 +5,8 @@ const morgan     = require("morgan");
 const passport   = require("passport");
 const jwt        = require("jsonwebtoken");
 
+const config     = require("./config");
+
 const app  = express();
 const port = 3000;
 
@@ -14,6 +16,9 @@ app.use(bodyParser.json());
 
 // Configure morgan
 app.use(morgan("dev"));
+
+// Connect to database
+mongoose.connect(config.database, { useMongoClient: true });
 
 // Routes
 app.get("/", (req, res) => {
